@@ -24,7 +24,7 @@
       <a href="#"><span>Contact</span></a>
       <a href="#"><span>Évènements passés</span></a>
       <a href="javascript:void(0);" class="icon" onclick="editNav()">
-        <i class="fa fa-bars"></i>
+        <i class="fal fa2x fa-bars"></i>
       </a>
     </div>
     </div>
@@ -56,12 +56,19 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
+            <div class="submitMessage">
+              <span>Merci d'avoir complété les informations</span>
+              <input class="btn-validate button" 
+              type="button" 
+              value="Fermer"
+              />
+            </div>
             <form
               name="reserve"
               action="index.html"
               id="form"
               method="get"
-              onsubmit=" return validate()">
+              onsubmit="validate(); return false">
               <div
                 class="formData">
                 <label>Prénom</label><br>
@@ -238,5 +245,6 @@
       </p>
     </footer>
     <script src="modal.js"></script>
+    <script defer src="https://pro.fontawesome.com/releases/v5.15.1/js/all.js"         integrity="sha384-Vipr9QSlUeD/qnhkau6GBnZnUmVkbaRZ0PgB1KjvWa1UoNBKnuzg1TgbJJn2a12T"         crossorigin="anonymous"></script>
   </body>
 </html>
