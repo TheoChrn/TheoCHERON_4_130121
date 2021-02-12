@@ -42,7 +42,7 @@ function editNav() {
     confirmedMessage.style.display="none";
   }
 
-  // Show div
+// Show div
   btnSubmit.addEventListener("click", validateConfirmed);
   function validateConfirmed(){
     if(validate() == true){
@@ -51,10 +51,22 @@ function editNav() {
     }
   }
 
+// Block page refresh
+  function handleForm(event){ 
+    event.preventDefault(); 
+  } 
+  form.addEventListener('submit', handleForm);
+
+
 // regex
   function isEmail(eMail) {
-    const regex = new RegExp("[a-zA-Z0-9\.]+@[a-zA-Z0-9\.\-]+\.[a-z]{2,5}");
+    const regex = new RegExp(/[a-zA-Z0-9\.]+@[a-zA-Z0-9\.\-]+\.[a-z]{2,5}/);
     return regex.test(eMail);
+  }
+
+  function isQuantity(quantity){
+    const regex = new RegExp(/[0-9]{1,2}/);
+    return regex.test(quantity);
   }
 
 // Function setErrorFor
@@ -64,23 +76,20 @@ function editNav() {
 
     // add error message inside small
     small.innerText = message;
-
     // add error class
     formControl.className = "formData error";
   }
 
-  // Function setSuccessFor
+// Function setSuccessFor
   function setSuccessFor(input, message){
     const formControl = input.parentElement;
     const small = formControl.querySelector("small")
-
+    
     // remove error message inside small
     small.innerText = message;
     // remove error class
     formControl.className = "formData";
   }
-
-
 
 // Function isValid
   /**
@@ -89,19 +98,18 @@ function editNav() {
    * @param  {HTMLElement} first 
    * @return {boolean} prénom valide ou non
    */
-  function isFirstValid(first){
-    const firstNameValueTrim = first.value.trim();
-    const firstNameValue = first.value.trim();
-    let result = (firstNameValueTrim != "" || firstNameValue.length > 2);
-      if (!result){ 
-        // let errorMessage = document.querySelector(`.error[data-error="${name}"]`);
-        setErrorFor(first, 'Veuillez renseigner votre prénom')
-        return false
-      } else {
-        setSuccessFor(first, "")
-      }
-      return true
-  }
+    function isFirstValid(first){
+      const firstNameValueTrim = first.value.trim();
+      const firstNameValue = first.value.trim();
+      let result = (firstNameValueTrim != "" || firstNameValue.length > 2);
+        if (!result){ 
+          setErrorFor(first, 'Veuillez renseigner votre prénom')
+          return false
+        } else {
+          setSuccessFor(first, "")
+        }
+        return true
+    }
 
   /**
    * Vérifier que l'email donné est valide et conforme au regex
@@ -109,19 +117,18 @@ function editNav() {
    * @param  {HTMLElement} last 
    * @return {boolean} nom valide ou non
    */
-  function isLastValid(last){
-    const lastNameValueTrim = last.value.trim();
-    const lastNameValue = last.value.trim();
-    let result = (lastNameValueTrim != "" || lastNameValue.length > 2);
-      if (!result){ 
-        // let errorMessage = document.querySelector(`.error[data-error="${name}"]`);
-        setErrorFor(last, 'Veuillez renseigner votre nom')
-        return false
-      } else {
-        setSuccessFor(last, "")
-      }
-      return true
-  }
+    function isLastValid(last){
+      const lastNameValueTrim = last.value.trim();
+      const lastNameValue = last.value.trim();
+      let result = (lastNameValueTrim != "" || lastNameValue.length > 2);
+        if (!result){ 
+          setErrorFor(last, 'Veuillez renseigner votre nom')
+          return false
+        } else {
+          setSuccessFor(last, "")
+        }
+        return true
+    }
 
   /**
    * Vérifier que l'email donné est valide et conforme au regex
@@ -129,19 +136,17 @@ function editNav() {
    * @param  {HTMLElement} eMail 
    * @return {boolean} email valide ou non
    */
-  function isEmailValid(eMail){
-    const eMailValueTrim = eMail.value.trim();
-    let result = (eMailValueTrim != "");
-      if (!result && !isEmail(eMailValueTrim)){ 
-        // let errorMessage = document.querySelector(`.error[data-error="${name}"]`);
-        setErrorFor(eMail, 'Veuillez renseigner un email valide')
-        return false
-      } else {
-        setSuccessFor(eMail, "")
-      }
-      return true
-  }
-
+    function isEmailValid(eMail){
+      const eMailValueTrim = eMail.value.trim();
+      let result = (eMailValueTrim != "");
+        if (!result || !isEmail(eMailValueTrim)){ 
+          setErrorFor(eMail, 'Veuillez renseigner un email valide')
+          return false
+        } else {
+          setSuccessFor(eMail, "")
+        }
+        return true
+    }
 
   /**
    * Vérifier que l'email donné est valide et conforme au regex
@@ -149,18 +154,17 @@ function editNav() {
    * @param  {HTMLElement} birthdate 
    * @return {boolean} date de naissance valide ou non
    */
-  function isBirthdateValid(birthdate){
-    const birthdateValueTrim = birthdate.value.trim();
-    let result = (birthdateValueTrim != "");
-      if (!result){ 
-        // let errorMessage = document.querySelector(`.error[data-error="${name}"]`);
-        setErrorFor(birthdate, 'Veuillez renseigner votre date de naissance')
-        return false
-      } else {
-        setSuccessFor(birthdate, "")
-      }
-      return true
-  }
+    function isBirthdateValid(birthdate){
+      const birthdateValueTrim = birthdate.value.trim();
+      let result = (birthdateValueTrim != "");
+        if (!result){ 
+          setErrorFor(birthdate, 'Veuillez renseigner votre date de naissance')
+          return false
+        } else {
+          setSuccessFor(birthdate, "")
+        }
+        return true
+    }
 
   /**
    * Vérifier que l'email donné est valide et conforme au regex
@@ -168,18 +172,17 @@ function editNav() {
    * @param  {HTMLElement} quantity 
    * @return {boolean} nombre valide ou non
    */
-  function isQuantityValid(quantity){
-    const quantityValueTrim = quantity.value.trim();
-    let result = (quantityValueTrim != "");
-      if (!result){ 
-        // let errorMessage = document.querySelector(`.error[data-error="${name}"]`);
-        setErrorFor(quantity, 'Veuillez renseigner un nombre')
-        return false
-      } else {
-        setSuccessFor(quantity, "")
-      }
-    return true
-  }
+    function isQuantityValid(quantity){
+      const quantityValueTrim = quantity.value.trim();
+      let result = (quantityValueTrim != "");
+        if (!result || !isQuantity(quantityValueTrim)){ 
+          setErrorFor(quantity, 'Veuillez renseigner un nombre')
+          return false
+        } else {
+          setSuccessFor(quantity, "")
+        }
+      return true
+    }
 
   /*function isLocationValid(value){
     return (value.trim() != "");
@@ -191,50 +194,20 @@ function editNav() {
    * @param  {HTMLElement} checkbox 
    * @return {boolean} la case est cochée ou non
    */
-  function isCheckboxValid(checkbox){
-    let result = document.getElementById("checkbox1").checked;
-    if (!result){
-      setErrorFor(checkbox, "Veuillez accepter les conditions d'utilisation");
-      return false
-    } else {
-      setSuccessFor(checkbox, "")
+    function isCheckboxValid(checkbox){
+      let result = document.getElementById("checkbox1").checked;
+      if (!result){
+        setErrorFor(checkbox, "Veuillez accepter les conditions d'utilisation");
+        return false
+      } else {
+        setSuccessFor(checkbox, "")
+      }
+      return true
     }
-    return true
-  }
 
   // Retourner toutes les fonctions de validation
-  function validate(){
-    // return every CheckFunction
-    return isFirstValid(first) && isLastValid(last) && isEmailValid(eMail) &&
-    isBirthdateValid(birthdate) && isQuantityValid(quantity) && isCheckboxValid(checkbox);
-  }
-
-/*String.prototype.capitalizeFirstLetter = function () {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-}*/
-
-
-  //let eMailValid = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  //let formData = new FormData(document.getElementById("form"));
-  //formData.get(value, name)
-  //console.log(formData.get("first"));
-  //let isFormValid = true;
-  
-
-
-// POUR CHAQUE name et value D'UNE entrée du formData
-  /*for (let [name, value] of formData.entries()){
-    // On log
-    console.log(name, value);
-    let errorMessage = document.querySelector(`.error[data-error="${name}"]`);
-    errorMessage.style.display = "none";
-    // SI la fonction isXValid est fausse ALORS
-    if (!window[`is${name.capitalizeFirstLetter()}Valid`](value)){
-      // On affiche le message d'erreur
-      errorMessage.style.display = "inline";
-      // On passe le validateur à false
-      isFormValid = false
-      // On renvoit false
-      return isFormValid 
+    function validate(){
+      // return every CheckFunction
+      return isFirstValid(first) && isLastValid(last) && isEmailValid(eMail) &&
+      isBirthdateValid(birthdate) && isQuantityValid(quantity) && isCheckboxValid(checkbox);
     }
-  }*/
